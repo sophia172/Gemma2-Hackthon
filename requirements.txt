@@ -1,5 +1,8 @@
 asyncio
 websockets
 opencv-python
-elevenlabs
 python-dotenv
+elevenlabs
+soundfile # Read sound file
+sounddevice #change sound speed
+gtts #text to sound
