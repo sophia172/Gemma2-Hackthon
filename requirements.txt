@@ -1,3 +1,5 @@
 asyncio
 websockets
 opencv-python
+elevenlabs
+dotenv
