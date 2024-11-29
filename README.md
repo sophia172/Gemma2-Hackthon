@@ -15,3 +15,32 @@ Kick-off meeting
   - market potential.
 - Define problem and solution
   - Think about the task required to solve the problem.
+# Kick-off meeting note
+
+- Rekha 
+	- is intersted in front-end. interested fitness, exercise. physical product like a watch.
+	- problems: Motivation to exercise. train a model to understand what they want?
+- Tanuj
+	- API handling, backend, python, database solution. 
+	- Problem: scroll the news in the car. temperate character to explain the summary story. read the context. character match the context.
+	- Ask questions regarding the content. 
+- Joenam
+	- Problem: Sign language translator
+	- Problem: Wardrobe planner, check the weather forecast. 
+	- Problem: Smart energy monitor. Automatically change my energy setting.
+	- Problem: Email Emotion alert
+
+- Ying
+	- translator using camera
+
+## Agreed on the problem and task
+
+**Read out news on the screen**
+
+**Tasks**
+- speak function (speed control) @Ying Liu
+- Warn User for sensitive content/offensive language etc @Rekha Mathew
+- Prompt engineering for text summarisation function @Rekha Mathew @Ying Liu
+- Prompt engineering for image summarisation function @Rekha Mathew @Ying Liu
+- Web Browser Extension @Tanuj Thakurta
+- Extract text and image from web page @Joenam Coutinho
