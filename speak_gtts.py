@@ -2,16 +2,18 @@ from gtts import gTTS
 from logger import logging
 import sounddevice as sd
 import soundfile as sf
-
+import asyncio
 from utils import timing
 
 @timing
-def speak(text, speed=1):
-    voice2text(text)
-    play_sound_sounddevice(speed=speed)
+async def speak(text, speed=1):
+    await voice2text(text)
+    await play_sound_sounddevice(speed=speed)
 
 
-def play_sound_sounddevice(file="temp.mp3", speed=1.5):
+
+
+async def play_sound_sounddevice(file="temp.mp3", speed=1.5):
     try:
         # Load the audio file
         data, sample_rate = sf.read(file)
@@ -20,20 +22,20 @@ def play_sound_sounddevice(file="temp.mp3", speed=1.5):
         new_sample_rate = int(sample_rate * speed)
 
         # Play the adjusted audio
-        sd.play(data, samplerate=new_sample_rate)
-        logging.info("Played sound")
-        sd.wait()
+        logging.info(f"Played sound {sd.play(data, samplerate=new_sample_rate)}")
+        await sd.wait()
     except Exception as e:
         logging.error(e)
 
-@timing
-def voice2text(text):
+
+async def voice2text(text):
     try:
         tts = gTTS(text=text, lang='en')
-        tts.save("temp.mp3")
-        logging.info("Saved text to voice in file temp.mp3")
+        if tts is not None:
+            await tts.save("temp.mp3")
+            logging.info("Saved text to voice in file temp.mp3")
     except Exception as e:
         logging.error(e)
 
 if __name__ == '__main__':
-    speak("This is a test of the sound system", speed=3)
+    asyncio.run(speak("This is a test of the sound system", speed=3))
