@@ -1,27 +1,31 @@
-from flask import Flask, request
-from flask_cors import CORS
+import uvicorn
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
+from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
+from news_summary_extractor import ArticleExtractor
+from speak import speak
+app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-app = Flask(__name__)
-CORS(app)
+class URLData(BaseModel):
+    url: str
 
-@app.route('/api/images', methods=['POST'])
-def process_images():
-    data = request.data.decode('utf-8')
-    print(data)
-    return "Text received successfully", 200
+@app.post("/api/data")
+async def process_everything(request_data: URLData):
+    print("this endpoint hit, data: ", request_data.model_dump_json())
+    news_url = request_data.url
+    article_extractor = ArticleExtractor(news_url)
+    article_summary = article_extractor.summarize_with_gemma()
+    await speak(article_summary)
+    return JSONResponse(content={"message": "Data received successfully"}, status_code=200)
 
-@app.route('/api/text', methods=['POST'])
-def process_data():
-    image = request.files['image']
-    image.save(f"./uploaded_{image.filename}")
-    print(f"Image {image.filename} received and saved.")
-    return {"message": "Image uploaded successfully"}, 200
 
-@app.route('/api/data', methods=['POST'])
-def process_everything():
-    text_and_images = request.json
-    print(text_and_images)
-    return {"message": "Data received successfully"}, 200
-
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
