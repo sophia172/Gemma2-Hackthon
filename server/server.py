@@ -1,3 +1,5 @@
+import os
+
 import uvicorn
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
@@ -22,9 +24,10 @@ class URLData(BaseModel):
 async def process_everything(request_data: URLData):
     print("this endpoint hit, data: ", request_data.model_dump_json())
     news_url = request_data.url
-    article_extractor = ArticleExtractor(news_url)
+    print(os.environ.get('GEMMA_API_KEY'))
+    article_extractor = ArticleExtractor(news_url,os.environ.get('GEMMA_API_KEY'))
     article_summary = article_extractor.summarize_with_gemma()
-    print(type(article_summary), article_summary)
+    print(type(article_summary), article_summary, article_extractor.article.text)
     await speak(article_summary)
     return JSONResponse(content={"message": "Data received successfully"}, status_code=200)
 
