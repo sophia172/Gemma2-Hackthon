@@ -59,7 +59,7 @@ if __name__ == "__main__":
             ]
     import asyncio
     image_summary = ImageSummary()
-    from speak_gtts import speak
+    from speak import speak
     for i, url in enumerate(urls):
 
         summary = image_summary(url)

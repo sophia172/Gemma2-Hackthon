@@ -3,7 +3,6 @@ import os
 from openai import OpenAI
 from dotenv import load_dotenv
 import asyncio
-from speak_gtts import speak
 from utils import timing
 load_dotenv()
 GROQ_API_KEY = os.getenv('GROQ_API_KEY')

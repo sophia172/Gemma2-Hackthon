@@ -1,20 +1,15 @@
-asyncio~=3.4.3
-websockets~=14.1
-python-dotenv~=1.0.1
-elevenlabs~=1.13.1
-soundfile~=0.12.1
-sounddevice~=0.5.1
-gtts~=2.5.4
+asyncio
+python-dotenv
+elevenlabs
 groq # text summary
-openai~=1.55.3
-Pillow~=11.0.0
-newspaper3k==0.2.8	#HTML news scrapping libary
+openai
+Pillow
 lxml_html_clean # Required for newspaper3k package
-python-dateutil==2.9.0.post0   #Date and time module
-requests==2.32.3	#Allow sending HTTP requests
-google-generativeai  #Gemma
+newspaper3k	#HTML news scrapping libary, need to update pip first
+python-dateutil  #Date and time module
+requests	#Allow sending HTTP requests
 numpy
-protobuf~=4.25.5
+protobuf
 fastapi
 pydantic
 uvicorn
