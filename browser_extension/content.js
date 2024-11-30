@@ -12,7 +12,7 @@
         url: pageUrl
     };
     console.log("message received: ",extractedData)
-    fetch('http://0.0.0.0:8000/api/data', {
+    fetch('http://localhost:8000/api/data', {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

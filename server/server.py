@@ -1,4 +1,5 @@
 import uvicorn
+from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from fastapi.responses import JSONResponse
@@ -13,7 +14,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
+load_dotenv()
 class URLData(BaseModel):
     url: str
 
@@ -23,6 +24,7 @@ async def process_everything(request_data: URLData):
     news_url = request_data.url
     article_extractor = ArticleExtractor(news_url)
     article_summary = article_extractor.summarize_with_gemma()
+    print(type(article_summary), article_summary)
     await speak(article_summary)
     return JSONResponse(content={"message": "Data received successfully"}, status_code=200)
 

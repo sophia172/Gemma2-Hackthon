@@ -12,6 +12,9 @@ class ArticleExtractor:
         """
         Initialize the ArticleExtractor with the article URL and Gemma API key.
         """
+        self.url=None
+        self.article=None
+        self.article_data=None
         self.set_article(article_url)
         self.gemma_api_key = gemma_api_key
 
