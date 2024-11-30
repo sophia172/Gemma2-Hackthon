@@ -9,3 +9,5 @@ gtts #text to sound
 groq # text summary
 openai # API call for both groq and openai compatible model
 Pillow # image processings
+keras # required for PaliGemma
+TensorFlow # required for keras
