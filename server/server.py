@@ -9,6 +9,7 @@ from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from news_summary_extractor import ArticleExtractor
 from speak import speak
+from fastapi.responses import StreamingResponse
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
@@ -22,10 +23,13 @@ class URLData(BaseModel):
 
 @app.post("/api/data")
 async def process_everything(request_data: URLData):
+    print("this endpoint hit")
     news_url = request_data.url
     article_extractor = ArticleExtractor()
     article_summary =await article_extractor(news_url)
-    return JSONResponse(content={"message": "Data received successfully",  "summary": article_summary}, status_code=200)
+    audio_bytes= await speak(article_summary)
+    return StreamingResponse(audio_bytes, media_type="audio/wav")
+    # return JSONResponse(content={"message": "Data received successfully",  "summary": article_summary}, status_code=200)
 
 
 if __name__ == "__main__":

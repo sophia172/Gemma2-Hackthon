@@ -6,6 +6,7 @@ from logger import logging
 import os
 import asyncio
 from utils import timing
+import io
 
 load_dotenv()
 ELEVENLABS_API_KEY = os.getenv("ELEVENLABS_API_KEY")
@@ -34,9 +35,11 @@ async def speak(text: str):
         )
         # Check if play returns a coroutine
         if audio is not None:
-            await play(audio)
+            audio_bytes = b''.join(audio)
+            audio_bytes = io.BytesIO(audio_bytes)
+            return audio_bytes
         else:
-            logging.info("No text was recorded")
+            logging.info("No audio was generated")
 
     except Exception as e:
         logging.error(f"Error in speak function: {e}")

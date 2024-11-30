@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Text and Image Extractor",
+  "name": "ByteTheNews",
   "version": "1.0",
-  "description": "Extracts all text and images from the current webpage and sends it to an API.",
+  "description": "Gives a summary of the content of the webpage.",
   "permissions": ["activeTab", "scripting", "storage"],
   "host_permissions": ["<all_urls>"],
   "js": ["content.js"],
