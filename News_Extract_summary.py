@@ -85,6 +85,8 @@ class ArticleExtractor:
         publish_date = self.extract_publish_date()
         authors = self.extract_authors()
 
+        main_image = self.article.top_image if self.article.top_image else None  #selects main image # Extract the main image (top image)
+
         # Summarize the article
         summary = self.summarize_with_gemma()
 
@@ -94,6 +96,7 @@ class ArticleExtractor:
             'publish_date': publish_date.strftime('%Y-%m-%d %H:%M:%S') if publish_date else None,
             'text': self.article.text,
             'summary': summary,
+            'main_image': main_image,
             'images': list(self.article.images),  # Convert set to list
         }
 
