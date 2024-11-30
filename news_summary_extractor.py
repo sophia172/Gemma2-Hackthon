@@ -3,20 +3,28 @@ from newspaper import Article
 from datetime import datetime
 from dateutil import parser
 import re
+import asyncio
 import requests
 import google.generativeai as genai
-
+import os
+import dotenv
+# dotenv.load_dotenv()
+# GROQ_API_KEY = os.getenv('GROQ_API_KEY')
+from text_summary import TextSummary
 
 class ArticleExtractor:
-    def __init__(self, article_url, gemma_api_key=None):
+    def __init__(self):
         """
         Initialize the ArticleExtractor with the article URL and Gemma API key.
         """
         self.url=None
         self.article=None
         self.article_data=None
+        self.text_summariser = TextSummary()
+
+    async def __call__(self, article_url):
         self.set_article(article_url)
-        self.gemma_api_key = gemma_api_key
+        await self.extract_and_save("article_data_with_summary.json")
 
     def set_article(self, article_url):
         self.url = article_url
@@ -64,27 +72,26 @@ class ArticleExtractor:
         author_matches = re.findall(r'By\s+([A-Za-z\s]+)', self.article.text)
         return author_matches if author_matches else None
 
-    def summarize_with_gemma(self):
+    async def summarize_with_gemma(self):
         """
         Summarize the article text using Google's Generative AI (Gemma).
         """
-        if not self.gemma_api_key:
-            print("Gemma API key not provided. Skipping summarization.")
-            return None
+
 
         try:
             # Configure Gemma
-            genai.configure(api_key=self.gemma_api_key)
-            model = genai.GenerativeModel("gemini-1.5-flash")
+            # genai.configure(api_key=self.gemma_api_key)
+            # model = genai.GenerativeModel("gemini-1.5-flash")
 
             # Generate summary
-            response = model.generate_content(f"Summarize this article: {self.article.text}")
-            return response.text if hasattr(response, 'text') else "Failed to generate summary."
+            response = await self.text_summariser(self.article.text)
+            return response
+
         except Exception as e:
             print(f"Error during Gemma summarization: {e}")
             return None
 
-    def extract_details(self):
+    async def extract_details(self):
         """
         Extract details including title, authors, publish date, text, and summary.
         """
@@ -94,7 +101,7 @@ class ArticleExtractor:
         main_image = self.article.top_image if self.article.top_image else None  # selects main image # Extract the main image (top image)
 
         # Summarize the article
-        summary = self.summarize_with_gemma()
+        summary = await self.summarize_with_gemma()
 
         self.article_data = {
             'title': self.article.title,
@@ -113,12 +120,12 @@ class ArticleExtractor:
         with open(filename, "w", encoding="utf-8") as json_file:
             json.dump(self.article_data, json_file, indent=4, ensure_ascii=False)
 
-    def extract_and_save(self, filename="article_data.json"):
+    async def extract_and_save(self, filename="article_data.json"):
         """
         Main method to download, parse, extract details, and save to JSON.
         """
         self.download_and_parse()
-        self.extract_details()
+        await self.extract_details()
         self.save_to_json(filename)
 
 
@@ -128,7 +135,7 @@ if __name__ == "__main__":
     url = "https://www.bbc.co.uk/news/articles/c0rgkkpl0dno"
     gemma_api_key = "AIzaSyCmXk4kUNLC2UriyuYcpkhkT3KoSBf97ts"  # Replace with your actual API key
 
-    extractor = ArticleExtractor(url, gemma_api_key=gemma_api_key)
-    extractor.extract_and_save("article_data_with_summary.json")
+    extractor = ArticleExtractor()
+    asyncio.run(extractor(url))
 
     print("Article data extracted and saved to article_data_with_summary.json")

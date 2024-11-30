@@ -7,7 +7,7 @@ from speak_gtts import speak
 from utils import timing
 load_dotenv()
 GROQ_API_KEY = os.getenv('GROQ_API_KEY')
-
+from logger import logging
 
 class TextSummary():
     def __init__(self, model="gemma2-9b-it"):
@@ -31,8 +31,10 @@ class TextSummary():
                                     ],
                                     model=self.model,
                                 )
-        await speak(chat_completion.choices[0].message.content, speed=1.5)
-        return
+        summary = chat_completion.choices[0].message.content
+        logging.info(f"Text summarisation of article is {summary}")
+        # await speak(chat_completion.choices[0].message.content, speed=1.5)
+        return summary
 
 if __name__ == "__main__":
     summary = TextSummary(model="gemma2-9b-it")
