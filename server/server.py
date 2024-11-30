@@ -23,14 +23,11 @@ class URLData(BaseModel):
 
 @app.post("/api/data")
 async def process_everything(request_data: URLData):
-    print("this endpoint hit")
     news_url = request_data.url
     article_extractor = ArticleExtractor()
     article_summary =await article_extractor(news_url)
     audio_bytes= await speak(article_summary)
     return StreamingResponse(audio_bytes, media_type="audio/wav")
-    # return JSONResponse(content={"message": "Data received successfully",  "summary": article_summary}, status_code=200)
-
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0",port=8000)
