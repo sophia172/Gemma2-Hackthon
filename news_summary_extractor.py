@@ -1,15 +1,8 @@
 import json
 from newspaper import Article
-from datetime import datetime
 from dateutil import parser
 import re
 import asyncio
-import requests
-import google.generativeai as genai
-import os
-import dotenv
-# dotenv.load_dotenv()
-# GROQ_API_KEY = os.getenv('GROQ_API_KEY')
 from text_summary import TextSummary
 
 class ArticleExtractor:
