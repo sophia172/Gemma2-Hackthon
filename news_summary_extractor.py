@@ -24,7 +24,9 @@ class ArticleExtractor:
 
     async def __call__(self, article_url):
         self.set_article(article_url)
-        await self.extract_and_save("article_data_with_summary.json")
+        self.download_and_parse()
+        await self.extract_details()
+        return self.article_data["summary"]
 
     def set_article(self, article_url):
         self.url = article_url
@@ -120,13 +122,6 @@ class ArticleExtractor:
         with open(filename, "w", encoding="utf-8") as json_file:
             json.dump(self.article_data, json_file, indent=4, ensure_ascii=False)
 
-    async def extract_and_save(self, filename="article_data.json"):
-        """
-        Main method to download, parse, extract details, and save to JSON.
-        """
-        self.download_and_parse()
-        await self.extract_details()
-        self.save_to_json(filename)
 
 
 # Main Script
