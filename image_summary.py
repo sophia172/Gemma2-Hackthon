@@ -57,7 +57,7 @@ if __name__ == "__main__":
             ]
     image_summary = ImageSummary()
     from speak_gtts import speak
-    for url in urls:
+    for i, url in enumerate(urls):
         summary = image_summary(url)
-        speak("Image 1")
+        speak(f"Image {i+1}")
         speak(summary)
