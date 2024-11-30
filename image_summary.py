@@ -1,46 +1,48 @@
-import keras
-import keras_nlp
-import numpy as np
-import PIL
-import requests
-import io
-from PIL import Image
-
+import os
+from logger import logging
+from dotenv import load_dotenv
+from utils import timing
+load_dotenv()
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+from openai import OpenAI
 
 class ImageSummary():
+
+    @timing
     def __init__(self):
-        keras.config.set_floatx("bfloat16")
-        self.paligemma = keras_nlp.models.PaliGemmaCausalLM.from_preset("pali_gemma_3b_mix_224")
-        self.paligemma.summary()
+        self.client = OpenAI(
+            api_key=OPENAI_API_KEY)
 
+    @timing
     def __call__(self, url, target_size=(224, 224)):
-        image = self.read_image(url, target_size)
-        output = self.paligemma.generate(
-            inputs={
-                "images": image,
-                "prompts": "Summarise image in one short sentence. Summary:",
-            }
-        )
-        return output
+        try:
+            summary = self.client.chat.completions.create(
+                model="gpt-4o",
+                messages=[
+                    {
+                        "role": "user",
+                        "content": [
+                            {
+                                "type": "image_url",
+                                "image_url": {
+                                                "url": url,
+                                            }
+                            },
+                            {
+                                "type": "text",
+                                "text": "Please describe the image in a short sentence.",
+                            },
+                        ],
+                    }
+                ],
+                max_tokens=256,
+            )
+            logging.info(f"Summary of the image: {summary.choices[0].message.content}")
+            return summary.choices[0].message.content
+        except Exception as e:
+            logging.error(e)
 
-    def crop_and_resize(self, image, target_size):
-        width, height = image.size
-        source_size = min(image.size)
-        left = width // 2 - source_size // 2
-        top = height // 2 - source_size // 2
-        right, bottom = left + source_size, top + source_size
-        return image.resize(target_size, box=(left, top, right, bottom))
 
-
-    def read_image(self, url, target_size):
-        contents = io.BytesIO(requests.get(url).content)
-        image = PIL.Image.open(contents)
-        image = self.crop_and_resize(image, target_size)
-        image = np.array(image)
-        # Remove alpha channel if neccessary.
-        if image.shape[2] == 4:
-            image = image[:, :, :3]
-        return image
 
 
 
@@ -55,9 +57,11 @@ if __name__ == "__main__":
             "https://ichef.bbci.co.uk/ace/standard/385/cpsprodpb/8090/live/cb3f89c0-ae6a-11ef-bdf5-b7cb2fa86e10.jpg",
             "https://sb.scorecardresearch.com/p?c1=2&c2=17986528&cs_ucfr=0&cv=2.0&cj=1",
             ]
+    import asyncio
     image_summary = ImageSummary()
     from speak_gtts import speak
     for i, url in enumerate(urls):
+
         summary = image_summary(url)
-        speak(f"Image {i+1}")
-        speak(summary)
+        asyncio.run(speak(f"Image {str(i+1)}"))
+        asyncio.run(speak(summary))

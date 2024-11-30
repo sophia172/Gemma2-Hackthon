@@ -9,8 +9,6 @@ gtts #text to sound
 groq # text summary
 openai # API call for both groq and openai compatible model
 Pillow # image processings
-keras # required for PaliGemma
-TensorFlow # required for keras
 
 newspaper3k==0.2.8	#HTML news scrapping libary
 python-dateutil==2.9.0.post0   #Date and time module
