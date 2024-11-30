@@ -16,7 +16,7 @@ class ArticleExtractor:
         self.gemma_api_key = gemma_api_key
 
     def set_article(self, article_url):
-        self.url = url
+        self.url = article_url
         self.article = Article(article_url)
         self.article_data = {}
 
