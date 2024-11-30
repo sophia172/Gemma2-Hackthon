@@ -35,8 +35,8 @@ class TextSummary():
         return
 
 if __name__ == "__main__":
-    # summary = TextSummary(model="gemma2-9b-it")
-    summary = TextSummary(model="llama3-8b-8192")
+    summary = TextSummary(model="gemma2-9b-it")
+    # summary = TextSummary(model="llama3-8b-8192")
     text = """While completing his residency in anesthesiology at Massachusetts General Hospital in the mid-2000s, Jon Bloom saw his fair share of foot amputations among patients with diabetes. The culprit: infected foot ulcers.
 
 “Some days, I would spend the entire day doing nothing but amputations,” Bloom says. “It’s a major problem we haven’t really moved forward on.”
