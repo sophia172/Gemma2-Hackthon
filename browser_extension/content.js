@@ -20,7 +20,18 @@
        body: JSON.stringify(extractedData)
     })
     .then(response => response.json())
-    .then(data => console.log("API response:", data))
+    .then(
+      data => {
+        news_summary = data.summary
+        console.log("API response:", data)
+        console.log(news_summary)
+        if (news_summary) {
+          const utterance = new SpeechSynthesisUtterance(news_summary);
+          speechSynthesis.speak(utterance);
+        }
+
+      }
+    )
     .catch(error => console.error("API error:", error));
     chrome.runtime.sendMessage({ action: "sendToAPI", data: extractedData });
 })();
