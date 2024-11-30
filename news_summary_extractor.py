@@ -8,14 +8,17 @@ import google.generativeai as genai
 
 
 class ArticleExtractor:
-    def __init__(self, url, gemma_api_key=None):
+    def __init__(self, article_url, gemma_api_key=None):
         """
         Initialize the ArticleExtractor with the article URL and Gemma API key.
         """
-        self.url = url
-        self.article = Article(url)
-        self.article_data = {}
+        self.set_article(article_url)
         self.gemma_api_key = gemma_api_key
+
+    def set_article(self, article_url):
+        self.url = url
+        self.article = Article(article_url)
+        self.article_data = {}
 
     def download_and_parse(self):
         """
@@ -36,7 +39,7 @@ class ArticleExtractor:
 
     def extract_publish_date(self):
         """
-        Extract the publish date or relative time.
+        Extract the published date or relative time.
         """
         if self.article.publish_date:
             return self.article.publish_date
@@ -85,6 +88,8 @@ class ArticleExtractor:
         publish_date = self.extract_publish_date()
         authors = self.extract_authors()
 
+        main_image = self.article.top_image if self.article.top_image else None  # selects main image # Extract the main image (top image)
+
         # Summarize the article
         summary = self.summarize_with_gemma()
 
@@ -94,6 +99,7 @@ class ArticleExtractor:
             'publish_date': publish_date.strftime('%Y-%m-%d %H:%M:%S') if publish_date else None,
             'text': self.article.text,
             'summary': summary,
+            'main_image': main_image,
             'images': list(self.article.images),  # Convert set to list
         }
 

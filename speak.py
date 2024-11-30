@@ -32,7 +32,6 @@ async def speak(text: str):
             ),
             model="eleven_turbo_v2_5",
         )
-
         # Check if play returns a coroutine
         if audio is not None:
             await play(audio)
@@ -44,4 +43,4 @@ async def speak(text: str):
 
 
 if __name__ == "__main__":
-    asyncio.run(speak("I can speak, I am not fast"))
+    asyncio.run(speak("e money \"derived substantially the whole of its value from the activities of Mr Grint\", which was \"otherwise realised\" as income.\n\nHe previously lost another, separate court case in 2019 that involved a £1m tax refund.\n\nGrint appeared in all eight Harry Potter films from 2001 until 2011.\n\nSince then, he has appeared in the films Into the White and Knock at the Cabin, and also appeared on TV and in theatre.\n\nHe has starred in Apple TV series Servant for the last four years.",))

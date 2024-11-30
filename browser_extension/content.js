@@ -6,17 +6,18 @@
 
     const pageTextContent = document.body.innerText;
     const images = Array.from(document.images).map(img => img.src);
+    const pageUrl = window.location.href;
 
     const extractedData = {
-        text: pageTextContent,
-        images: images
+        url: pageUrl
     };
     console.log("message received: ",extractedData)
-    fetch('http://localhost:5000/api/data', {
-      method: "GET",
+    fetch('http://0.0.0.0:8000/api/data', {
+      method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
+       body: JSON.stringify(extractedData)
     })
     .then(response => response.json())
     .then(data => console.log("API response:", data))
