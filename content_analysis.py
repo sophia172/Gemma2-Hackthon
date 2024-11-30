@@ -1,6 +1,8 @@
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 import torch
 from torch.nn.functional import softmax
+from dotenv import load_dotenv
+load_dotenv()
 
 tokenizer = AutoTokenizer.from_pretrained("google/shieldgemma-2b")
 model = AutoModelForSequenceClassification.from_pretrained(

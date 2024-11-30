@@ -7,7 +7,7 @@ from speak_gtts import speak
 from utils import timing
 load_dotenv()
 GROQ_API_KEY = os.getenv('GROQ_API_KEY')
-
+from logger import logging
 
 class TextSummary():
     def __init__(self, model="gemma2-9b-it"):
@@ -31,12 +31,14 @@ class TextSummary():
                                     ],
                                     model=self.model,
                                 )
-        await speak(chat_completion.choices[0].message.content, speed=1.5)
-        return
+        summary = chat_completion.choices[0].message.content
+        logging.info(f"Text summarisation of article is {summary}")
+        # await speak(chat_completion.choices[0].message.content, speed=1.5)
+        return summary
 
 if __name__ == "__main__":
-    # summary = TextSummary(model="gemma2-9b-it")
-    summary = TextSummary(model="llama3-8b-8192")
+    summary = TextSummary(model="gemma2-9b-it")
+    # summary = TextSummary(model="llama3-8b-8192")
     text = """While completing his residency in anesthesiology at Massachusetts General Hospital in the mid-2000s, Jon Bloom saw his fair share of foot amputations among patients with diabetes. The culprit: infected foot ulcers.
 
 “Some days, I would spend the entire day doing nothing but amputations,” Bloom says. “It’s a major problem we haven’t really moved forward on.”
