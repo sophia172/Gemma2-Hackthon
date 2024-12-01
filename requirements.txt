@@ -13,3 +13,4 @@ protobuf
 fastapi
 pydantic
 uvicorn
+torch
