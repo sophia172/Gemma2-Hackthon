@@ -1,3 +1,5 @@
+# Please Direct to [this link](https://github.com/sophia172/ByteTheNews_Hackthon) for submitted version
+
 # ByteTheNews
 Get bite-sized news summaries of online news stories, read aloud to you, so that you can stay informed on-the-go, save time, save your eyes and never miss out on important updates!
 
@@ -5,7 +7,7 @@ Get bite-sized news summaries of online news stories, read aloud to you, so that
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/yourusername/llama-hackathon.git
+   git clone https://github.com/yourusername/ByteTheNews_Hackthon
    cd ByteTheNews_Hackathon
    ```
 
@@ -26,48 +28,51 @@ Get bite-sized news summaries of online news stories, read aloud to you, so that
    - `OPENAI_API_KEY`: Your OpenAI API key.
    - `KAGGLE_KEY`: Your Kaggle key for Gemma Access.
    - `KAGGLE_USERNAME`: Your Kaggle Username for Gemma Access.
+   - `HF_ACCESS_TOKEN`: Your HuggingFace token for **google/shieldgemma-2b** access
+   
+
 4. **Run server**:
+   Give it some time to download the big ShieldGemma model. If it takes too long, try to rerun the server.py
     ```bash
    python server.py
    ```
+   
 # 📑 Run the Extension
    1. Open Chrome browser.
-   2. Click three dots next to your profile picture on the top right.
-   3. Click **Extensions** --> **Manage Extensions**.
-   4. Switch **Developer Mode** to On.
-   5. Press **Load Unpacked** on the top left.
-   6. Choose the **browser_extension** folder located in the project.
-   7. Open a new Chrome Tab and direct to a news page.
-   8. Find the extension and click **Hear Summary**.
+   2. Type `chrome://extensions/` in the search bar.
+   3. Switch **Developer Mode** to On.
+   4. Press **Load Unpacked** on the top left.
+   5. Choose the **browser_extension** folder located in the project.
+   6. Open a new Chrome Tab and direct to a news page.
+   7. Find the extension and click **Hear Summary**.
+   8. Give it a few seconds as some models are running locally
 
 
 # 🚀 About the Project
-- What: ByteTheNews delivers bite-sized reads out summaries of online news stories while you are not looking.
+- **What**: ByteTheNews delivers bite-sized reads out summaries of online news stories while you are not looking.
 
-- Problem it Solves: ByteTheNews addresses the needs of busy professionals with limited time, enhances accessibility for individuals with visual impairments, and provides a screen-free, customizable way to consume news, perfect for unwinding after a long day.
+- **Problem**: ByteTheNews addresses the needs of busy professionals with limited time, enhances accessibility for individuals with visual impairments, and provides a screen-free, customizable way to consume news, perfect for unwinding after a long day.
 
-- Business Impact: With the potential to reach millions of news readers worldwide, ByteTheNews promotes inclusivity and accessibility, creating a positive social impact for diverse audiences.
+- **Business Impact**: With the potential to reach millions of news readers worldwide, ByteTheNews promotes inclusivity and accessibility, creating a positive social impact for diverse audiences.
 
 # 🏆 Hackathon Details
 
-Hackathon Name: Gemma 2 AI Challenge
-Challenge: Build intelligent AI solutions that harness the power of Gemma 2 models to transform processes and enhance productivity.
+- **Hackathon Name**: Gemma 2 AI Challenge
+- **Challenge**: Build intelligent AI solutions that harness the power of Gemma 2 models to transform processes and enhance productivity.
 
 Team Members:
-- Ying Liu - (GitHub or LinkedIn Link)
-- Joenam - (GitHub or LinkedIn Link)
-- Tanuj - (GitHub or LinkedIn Link)
-- Rekha Mathew - (GitHub or LinkedIn Link)
+- **Ying Liu** - https://github.com/sophia172
+- **Joenam Coutinho** - https://github.com/joenamcoutinho
+- **Tanuj Guha Thakurta** - https://github.com/hexcodeblaster
+- **Rekha Mathew** - https://github.com/RekhaMathew-Product
 
 # 🎯 Key Features
-
-- Feature 1: Text Summariser - Condenses lengthy news articles on your browser into concise, easy-to-digest summaries. 
-
-- Feature 2: Audio Output - Transforms text summaries into natural-sounding audio, at varying speed, while warning the user when the content contains sensitive information. 
-
-- Feature 3: Content Analyzer - Warns the user when the content contains sensitive information before proceeding to reading the summarised news. 
-
-- Feature 4: Web-browser extension -  Easily integrates with your browser with a simple UI that allows users to start and pause audio when needed.  
+- **Article Scraper**: Instantly condenses long news articles from your browser into clear, bite-sized summaries using the Newspaper Python package.
+- **Text Summarizer**: Utilizes the Gemma API through Groq to transform lengthy text into concise, digestible summaries, making news easier to read.
+- **Image Summarizer**: Leverages OpenAI's API to detect and summarize visual content.
+- **Content Analyzer**: Scans and notifies users when sensitive content is present, ensuring they are informed before proceeding with the summarized news, powered by ShieldGemma.
+- **Audio Output**: Converts text summaries into natural-sounding audio using ElevenLab's API, with automatic warnings for sensitive content.
+- **Web Browser Extension**: Seamlessly integrates into your browser with a user-friendly interface, allowing easy control to start, pause, or resume audio.
 
 # 🛠️ Tech Stack
 
@@ -76,23 +81,14 @@ Team Members:
 - AI Models: Gemma2, GemmaShield, ElevenLabs, OpenAI
 
 
-
-# 🎥 Demo
-Demo Link: 
-
-# 📖 How to Use
-Provide step-by-step instructions to demonstrate how to use the application.
-
-# 🔥 Screenshots
-
 # 🔗 Links
-- GitHub Repository: [Github](https://github.com/sophia172/Gemma2-Hackthon ) 
-- Live Demo: 
-- Presentation Deck: 
+- GitHub Repository: [Github](https://github.com/sophia172/ByteTheNews_Hackthon) 
+- Live Demo: [video](https://lablab.ai/event/gemma-2-ai-challenge/sweeeeeeet/bytethenews)
+- Presentation Deck: [slides](https://storage.googleapis.com/lablab-static-eu/presentations/submissions/cm45remwp000o3d67histeoui/cm45remwp000o3d67histeoui-1733068749332_z45w7z0har.pdf)
 
 # 💡 Future Enhancements
 - Select voice as male or female as per users preference 
 - Implemented on mobile phone device 
 
 # 📧 Contact
-Name - [Email]
+Name - sophia.j.liu@gmail.com
