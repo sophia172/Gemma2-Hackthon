@@ -6,6 +6,7 @@ import asyncio
 from text_summary import TextSummary
 from image_summary import ImageSummary
 from logger import logging
+# from content_analysis import check_offensive_content
 
 class ArticleExtractor:
     def __init__(self):
@@ -85,6 +86,8 @@ class ArticleExtractor:
             image_summary = await self.image_summariser(self.article_data["main_image"])
             text_summary = await self.text_summariser(f"Text: {self.article.text} \n Image description: {image_summary}")
             logging.info(f"Summary of the full article is: {text_summary}")
+            # shield_on = check_offensive_content(text_summary)
+            # logging.info(f"Shield on: {shield_on}")
             return text_summary
 
         except Exception as e:
