@@ -13,6 +13,9 @@ extractButton.addEventListener("click", () => {
     });
     extractButton.hidden = true;    
     playPauseButton.hidden = false;
+    playPauseButton.disabled = true
+    playPauseButton.style.backgroundColor = "#d3d3d3";
+
 });
 
 playPauseButton.addEventListener("click", () => {
@@ -23,7 +26,12 @@ playPauseButton.addEventListener("click", () => {
 });
 
 chrome.runtime.onMessage.addListener((message) => {
-    if (message.action === "audioCompleted") {
+    if (message.action === "audioStarted") {
+        console.log("Audio has started playing.");
+        playPauseButton.disabled = false;
+        playPauseButton.style.backgroundColor = "#28a745";
+    }
+    else if (message.action === "audioCompleted") {
         console.log("Audio playback completed.");
     }
 });
