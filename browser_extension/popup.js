@@ -2,6 +2,8 @@ const playPauseButton = document.getElementById("playPause");
 const playPauseIcon = document.getElementById("playPauseIcon");
 const extractButton = document.getElementById("extract");
 
+playPauseButton.hidden = true;
+
 extractButton.addEventListener("click", () => {    
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
         chrome.scripting.executeScript({
@@ -9,7 +11,8 @@ extractButton.addEventListener("click", () => {
             files: ["content.js"]
         });
     });
-    extractButton.disabled = true;
+    extractButton.hidden = true;    
+    playPauseButton.hidden = false;
 });
 
 playPauseButton.addEventListener("click", () => {
@@ -22,7 +25,6 @@ playPauseButton.addEventListener("click", () => {
 chrome.runtime.onMessage.addListener((message) => {
     if (message.action === "audioCompleted") {
         console.log("Audio playback completed.");
-        extractButton.disabled = false;
     }
 });
 

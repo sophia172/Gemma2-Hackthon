@@ -1,25 +1,23 @@
 (() => {
-    // if (window.hasRun) {
-    //     return; // Prevent the script from running multiple times
-    // }
-    // window.hasRun = true;
 
-    let audio = null; // Global variable to store the Audio object
+    let audio = null; 
 
     const playAudio = (audioBlob) => {      
         const audioUrl = URL.createObjectURL(audioBlob);
         if (audio) {
-            audio.pause(); 
+            audio.pause();
             audio.currentTime = 0;
+            audio.src = ""; 
+            audio = null;
         }
         audio = new Audio(audioUrl);
-        isAudioPlaying = true;
         audio.addEventListener("ended", () => {
             console.log("Audio playback completed.");
             isAudioPlaying = false; 
             chrome.runtime.sendMessage({ action: "audioCompleted" });
         });
         audio.play();
+        isAudioPlaying = true;
     };
 
     const toggleAudioPlayback = () => {
@@ -51,7 +49,8 @@
         if (!response.ok) {
             throw new Error(`API error: ${response.statusText}`);
         }
-        const audioBlob = await response.blob();
+        
+        audioBlob = await response.blob();
         playAudio(audioBlob); 
     })
     .catch(error => console.error("API error:", error));
