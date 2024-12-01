@@ -16,6 +16,11 @@
             isAudioPlaying = false; 
             chrome.runtime.sendMessage({ action: "audioCompleted" });
         });
+        audio.addEventListener("play", () => {
+            console.log("Audio playback started.");
+            isAudioPlaying = true; 
+            chrome.runtime.sendMessage({ action: "audioStarted" });
+        });
         audio.play();
         isAudioPlaying = true;
     };
