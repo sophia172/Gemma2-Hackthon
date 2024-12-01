@@ -1,5 +1,4 @@
 
-from elevenlabs import play
 from elevenlabs.client import ElevenLabs, Voice, VoiceSettings
 from dotenv import load_dotenv
 from logger import logging
@@ -33,10 +32,12 @@ async def speak(text: str):
             ),
             model="eleven_turbo_v2_5",
         )
+        logging.info(f"Within speak function, audio is {audio}")
         # Check if play returns a coroutine
         if audio is not None:
             audio_bytes = b''.join(audio)
             audio_bytes = io.BytesIO(audio_bytes)
+            logging.info(f"Within speak function, audio bytes created with {audio_bytes}")
             return audio_bytes
         else:
             logging.info("No audio was generated")

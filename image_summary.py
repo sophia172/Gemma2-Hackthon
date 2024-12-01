@@ -14,7 +14,7 @@ class ImageSummary():
             api_key=OPENAI_API_KEY)
 
     @timing
-    def __call__(self, url):
+    async def __call__(self, url):
         try:
             summary = self.client.chat.completions.create(
                 model="gpt-4o",
