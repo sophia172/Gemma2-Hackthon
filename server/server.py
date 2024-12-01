@@ -1,11 +1,8 @@
 import os
 
 import uvicorn
-from dotenv import load_dotenv
-from fastapi import FastAPI, HTTPException
-from jinja2.ext import debug
+from fastapi import FastAPI
 from pydantic import BaseModel
-from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from news_summary_extractor import ArticleExtractor
 from speak import speak

@@ -79,6 +79,7 @@ class ArticleExtractor:
             # model = genai.GenerativeModel("gemini-1.5-flash")
 
             # Generate summary
+            response = await self.article_data
             response = await self.text_summariser(self.article.text)
             return response
 
@@ -95,18 +96,18 @@ class ArticleExtractor:
 
         main_image = self.article.top_image if self.article.top_image else None  # selects main image # Extract the main image (top image)
 
-        # Summarize the article
-        summary = await self.summarize_with_gemma()
-
         self.article_data = {
             'title': self.article.title,
             'authors': authors,
             'publish_date': publish_date.strftime('%Y-%m-%d %H:%M:%S') if publish_date else None,
             'text': self.article.text,
-            'summary': summary,
             'main_image': main_image,
             'images': list(self.article.images),  # Convert set to list
         }
+        # Summarize the article
+        summary = await self.summarize_with_gemma()
+
+        self.article_data["summary"] = summary
 
     def save_to_json(self, filename):
         """
