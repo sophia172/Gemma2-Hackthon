@@ -15,6 +15,7 @@ extractButton.addEventListener("click", () => {
     playPauseButton.hidden = false;
     playPauseButton.disabled = true
     playPauseButton.style.backgroundColor = "#d3d3d3";
+    playPauseButton.innerHTML = `<i id="playPauseIcon" class="fas fa-pause icon"></i> Wait`;
 
 });
 
@@ -30,6 +31,7 @@ chrome.runtime.onMessage.addListener((message) => {
         console.log("Audio has started playing.");
         playPauseButton.disabled = false;
         playPauseButton.style.backgroundColor = "#28a745";
+        playPauseButton.innerHTML = `<i id="playPauseIcon" class="fas fa-pause icon"></i> Pause`;
     }
     else if (message.action === "audioCompleted") {
         console.log("Audio playback completed.");
