@@ -31,7 +31,7 @@ class TextSummary():
                                     model=self.model,
                                 )
         summary = chat_completion.choices[0].message.content
-        logging.info(f"Text summarisation of article is {summary}")
+        logging.info(f"Summary of the text is: {summary}")
         # await speak(chat_completion.choices[0].message.content, speed=1.5)
         return summary
 

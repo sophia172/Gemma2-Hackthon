@@ -4,6 +4,8 @@ from dateutil import parser
 import re
 import asyncio
 from text_summary import TextSummary
+from image_summary import ImageSummary
+from logger import logging
 
 class ArticleExtractor:
     def __init__(self):
@@ -14,6 +16,7 @@ class ArticleExtractor:
         self.article=None
         self.article_data=None
         self.text_summariser = TextSummary()
+        self.image_summariser = ImageSummary()
 
     async def __call__(self, article_url):
         self.set_article(article_url)
@@ -79,9 +82,10 @@ class ArticleExtractor:
             # model = genai.GenerativeModel("gemini-1.5-flash")
 
             # Generate summary
-            response = await self.article_data
-            response = await self.text_summariser(self.article.text)
-            return response
+            image_summary = await self.image_summariser(self.article_data["main_image"])
+            text_summary = await self.text_summariser(f"Text: {self.article.text} \n Image description: {image_summary}")
+            logging.info(f"Summary of the full article is: {text_summary}")
+            return text_summary
 
         except Exception as e:
             print(f"Error during Gemma summarization: {e}")
