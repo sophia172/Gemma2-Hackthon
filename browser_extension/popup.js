@@ -33,6 +33,7 @@ chrome.runtime.onMessage.addListener((message) => {
     }
     else if (message.action === "audioCompleted") {
         console.log("Audio playback completed.");
+        toggleIcon()
     }
 });
 
