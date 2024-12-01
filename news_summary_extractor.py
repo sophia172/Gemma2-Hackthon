@@ -88,8 +88,10 @@ class ArticleExtractor:
             logging.info(f"Summary of the full article is: {text_summary}")
             shield_on = await check_offensive_content(text_summary)
             logging.info(f"Shield on: {shield_on}")
-
-            return "This news may contain dangerous content: " + text_summary if shield_on is True else text_summary
+            if shield_on is False:
+                return "This news does not contain dangerous content and protected by Gemma Shield: " + text_summary
+            else:
+                return "This news may contain dangerous content: " + text_summary
 
         except Exception as e:
             print(f"Error during Gemma summarization: {e}")
