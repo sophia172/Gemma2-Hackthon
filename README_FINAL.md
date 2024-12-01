@@ -1,12 +1,18 @@
-# ByteTheNEws
-Get bite-sized news summaries of online news stories, read aloud to you, so that you can stay informed on-the-go, save time, and never miss out on important updates!
+# ByteTheNews
+Get bite-sized news summaries of online news stories, read aloud to you, so that you can stay informed on-the-go, save time, save your eyes and never miss out on important updates!
 
+# How to install
+1. Run server on your local computer (Unless you want to try our online server)
+2. Open Chrome browser
+3. Click three dots next to your profile picture on the top right.
+4. Click **Extensions** --> **Manage Extensions**
+5. Switch **Developper Mode** to On
 # 🚀 About the Project
-- What: ByteTheNews delivers bite-sized summaries of online news stories and reads them aloud, keeping you informed on-the-go while saving time and reducing screen fatigue.
+- What: ByteTheNews delivers bite-sized reads out summaries of online news stories while you are not looking.
 
-- Problem it Solves: ByteTheNews addresses the needs of busy professionals with limited time, enhances accessibility for individuals with visual impairments, and provides a screen-free, customizable way to consume news—perfect for unwinding after a long day.
+- Problem it Solves: ByteTheNews addresses the needs of busy professionals with limited time, enhances accessibility for individuals with visual impairments, and provides a screen-free, customizable way to consume news, perfect for unwinding after a long day.
 
-- Impact: With the potential to reach millions of news readers worldwide, ByteTheNews promotes inclusivity and accessibility, creating a positive social impact for diverse audiences.
+- Business Impact: With the potential to reach millions of news readers worldwide, ByteTheNews promotes inclusivity and accessibility, creating a positive social impact for diverse audiences.
 
 # 🏆 Hackathon Details
 
